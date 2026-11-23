@@ -8,7 +8,7 @@
 ### 1.1 The Business Problem
 Coforge manages a large pool of consultant resumes across onshore and offshore practices. Incoming resumes arrive in wildly varying formats (multi-column PDFs, Canva designs, Word `.docx`, and scanned images) with disparate section naming conventions, inconsistent date styles, and decorative styling.
 
-Today, converting these diverse profiles into the official corporate template ([`Role - Name - Coforge.docx`](file:///c:/Users/chity/Documents/ResumeAutomation/Role%20-%20Name%20-%20Coforge.docx)) is performed manually via copy-paste. This manual process is:
+Today, converting these diverse profiles into the official corporate template ([`Role - Name - Coforge.docx`](../templates/Role%20-%20Name%20-%20Coforge.docx)) is performed manually via copy-paste. This manual process is:
 * **Slow and expensive**: 20–45 minutes per resume.
 * **Error-prone**: High frequency of dropped bullets, misplaced dates, and distorted styling.
 * **Inconsistent**: Varies depending on the individual recruiter or resource manager.
@@ -20,7 +20,7 @@ An automated, deterministic pipeline that ingests any candidate resume, processe
 
 ## 2. Reverse-Engineering the Coforge Master Template
 
-By analyzing the master template ([`Role - Name - Coforge.docx`](file:///c:/Users/chity/Documents/ResumeAutomation/Role%20-%20Name%20-%20Coforge.docx)) and comparing it against human-curated production outputs ([`Pavan P.docx`](file:///c:/Users/chity/Documents/ResumeAutomation/Pavan%20P.docx) and [`Sreenivasa G.docx`](file:///c:/Users/chity/Documents/ResumeAutomation/Sreenivasa%20G.docx)), the target document anatomy has been decoded:
+By analyzing the master template ([`Role - Name - Coforge.docx`](../templates/Role%20-%20Name%20-%20Coforge.docx)) and comparing it against human-curated production outputs ([`Pavan P.docx`](../data/reference_samples/pavan_p/Pavan%20P.docx) and [`Sreenivasa G.docx`](../data/reference_samples/sreenivasa_g/Sreenivasa%20G.docx)), the target document anatomy has been decoded:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -270,7 +270,7 @@ def extract_resume_with_claude(pdf_path: str, api_key: str) -> dict:
 
 ## 7. Word Template Population Engine (`python-docx`)
 
-This module opens [`Role - Name - Coforge.docx`](file:///c:/Users/chity/Documents/ResumeAutomation/Role%20-%20Name%20-%20Coforge.docx) and performs precise in-memory OpenXML manipulations to guarantee styling preservation.
+This module opens [`Role - Name - Coforge.docx`](../templates/Role%20-%20Name%20-%20Coforge.docx) and performs precise in-memory OpenXML manipulations to guarantee styling preservation.
 
 ```python
 import docx
@@ -478,7 +478,7 @@ def build_graph():
 
 ## 9. Bulk Batch Execution Guide
 
-To process all 29 resumes in the [`Inputs/`](file:///c:/Users/chity/Documents/ResumeAutomation/Inputs) folder concurrently:
+To process all 29 resumes in the [`Inputs/`](../Inputs/) folder concurrently:
 
 ```bash
 # Install core dependencies

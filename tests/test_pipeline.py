@@ -8,13 +8,11 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.types import Command
 from lxml import etree
 
-from batch_run import process
-from extraction import extract_resume_with_claude
-from langgraph_resume_pipeline import build_graph
-from template_engine import populate_coforge_document
-
-
-MASTER = Path(__file__).with_name("Role - Name - Coforge.docx")
+from resume_automation.cli import process
+from resume_automation.extraction import extract_resume_with_claude
+from resume_automation.paths import MASTER_TEMPLATE as MASTER
+from resume_automation.pipeline import build_graph
+from resume_automation.template_engine import populate_coforge_document
 
 
 def payload():
@@ -84,7 +82,7 @@ class PipelineTests(unittest.TestCase):
             result = graph.invoke(Command(resume={"approved": True, "corrected_payload": self.data}), config)
             self.assertTrue(Path(result["output_docx_path"]).is_file())
 
-    @patch("extraction.Anthropic")
+    @patch("resume_automation.extraction.Anthropic")
     def test_tool_extraction(self, sdk):
         client = sdk.return_value.__enter__.return_value
         block = Mock(type="tool_use", input=self.data)

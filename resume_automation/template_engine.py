@@ -9,7 +9,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 from docx.table import Table, _Cell
 
-from resume_schema import CoforgeResumeSchema
+from .schema import CoforgeResumeSchema
 
 
 def _cell(table, row, column=0):

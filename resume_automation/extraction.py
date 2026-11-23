@@ -10,7 +10,7 @@ from docx import Document
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from pypdf import PdfReader
 
-from resume_schema import CoforgeResumeSchema
+from .schema import CoforgeResumeSchema
 
 
 schema = CoforgeResumeSchema.model_json_schema()

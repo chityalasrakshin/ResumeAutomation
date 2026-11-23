@@ -7,9 +7,10 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
-from extraction import extract_source, load_source
-from resume_schema import CoforgeResumeSchema
-from template_engine import populate_coforge_document
+from .extraction import extract_source, load_source
+from .paths import MASTER_TEMPLATE, OUTPUT_DIR
+from .schema import CoforgeResumeSchema
+from .template_engine import populate_coforge_document
 
 
 class OrchestrationState(TypedDict, total=False):
@@ -73,8 +74,8 @@ def _filename_part(value):
     return re.sub(r'[<>:"/\\|?*\x00-\x1f]', "_", value).strip(" .")[:60]
 
 
-def build_graph(checkpointer=None, template_path="Role - Name - Coforge.docx",
-                output_dir="output", extractor=extract_source):
+def build_graph(checkpointer=None, template_path=MASTER_TEMPLATE,
+                output_dir=OUTPUT_DIR, extractor=extract_source):
     def extraction(state):
         source = load_source(Path(state["file_path"]))
         data = CoforgeResumeSchema.model_validate(extractor(source))
